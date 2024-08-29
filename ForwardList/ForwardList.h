@@ -27,6 +27,9 @@ public:
         clear();
         std::cout << "Se ha destruido ForwardList." << std::endl;
     }
+    Node<T>* get_head() { // Método para acceder a head
+        return head;
+    }
 
     T front() { // Retorna el elemento al comienzo
         if (head == nullptr) {
