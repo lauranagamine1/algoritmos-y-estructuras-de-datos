@@ -1,3 +1,6 @@
+//
+// Created by laura on 27/08/2024.
+//
 #ifndef ESTRUCTURAS_DE_DATOS_LAURA_FORWARD_LIST_H
 #define ESTRUCTURAS_DE_DATOS_LAURA_FORWARD_LIST_H
 
@@ -150,4 +153,41 @@ public:
     }
 };
 
+void forward_list_test(){
+    ForwardList<int> list;
+
+    // Prueba de inserción al frente
+    list.push_front(10);
+    list.push_front(20);
+    list.push_front(30);
+
+    // Prueba de inserción al final
+    list.push_back(40);
+    list.push_back(50);
+
+    // Mostrar la lista
+    std::cout << "Lista después de push_front y push_back: " << list << std::endl;
+
+    // Probar front() y back()
+    std::cout << "Elemento al frente: " << list.front() << std::endl;
+    std::cout << "Elemento al final: " << list.back() << std::endl;
+
+    // Prueba de pop_front y pop_back
+    std::cout << "Eliminando elemento al frente: " << list.pop_front() << std::endl;
+    std::cout << "Eliminando elemento al final: " << list.pop_back() << std::endl;
+
+    // Mostrar la lista después de pop_front y pop_back
+    std::cout << "Lista después de pop_front y pop_back: " << list << std::endl;
+
+    // Prueba de operador[]
+    std::cout << "Elemento en la posición 0: " << list[0] << std::endl;
+
+    // Prueba de reverse()
+    list.reverse();
+    std::cout << "Lista después de reverse: " << list << std::endl;
+
+    // Prueba de clear()
+    list.clear();
+    std::cout << "Lista después de clear: " << list << std::endl;
+}
 #endif // ESTRUCTURAS_DE_DATOS_LAURA_FORWARD_LIST_H
