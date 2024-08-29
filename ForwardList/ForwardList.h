@@ -107,7 +107,7 @@ public:
     }
 
     bool empty() { // Retorna si la lista está vacía o no
-        return head == nullptr;
+        return (head == nullptr);
     }
 
     int size() { // Retorna el tamaño de la lista
@@ -152,6 +152,8 @@ public:
         return os;
     }
 };
+
+// termina
 
 void forward_list_test(){
     ForwardList<int> list;
