@@ -27,6 +27,9 @@ public:
         clear();
         std::cout << "Se ha destruido ForwardList." << std::endl;
     }
+    void set_head(Node<T>* new_head) { // Setter para head
+        head = new_head;
+    }
     Node<T>* get_head() { // Método para acceder a head
         return head;
     }
