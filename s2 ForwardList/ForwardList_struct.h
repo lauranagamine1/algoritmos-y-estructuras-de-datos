@@ -1,111 +1,101 @@
 //
-// Created by laura on 27/08/2024.
+// Created by laura on 7/09/2024.
 //
-#ifndef ESTRUCTURAS_DE_DATOS_LAURA_FORWARD_LIST_H
-#define ESTRUCTURAS_DE_DATOS_LAURA_FORWARD_LIST_H
 
+#ifndef ALGORITMOS_Y_ESTRUCTRUAS_DE_DATOS_GIT_FORWARDLIST_STRUCT_H
+#define ALGORITMOS_Y_ESTRUCTRUAS_DE_DATOS_GIT_FORWARDLIST_STRUCT_H
 #include <iostream>
 #include <stdexcept>
 
-template <typename T>
 struct Node {
-    T data;
-    Node<T>* next;
+    int data;
+    Node* next;
 
-    Node(T value) : data(value), next(nullptr) {} // Constructor for Node
+    Node(int value) : data(value), next(nullptr) {} // Constructor para Node
 };
 
-template <typename T>
-class ForwardList {
-private:
-    Node<T>* head;
+struct ForwardList {
+    Node* head;
 
-public:
-    ForwardList() : head(nullptr) {} // Default constructor
+    ForwardList() : head(nullptr) {} // Constructor por defecto
 
     ~ForwardList() { // Destructor
         clear();
         std::cout << "Se ha destruido ForwardList." << std::endl;
     }
-    void set_head(Node<T>* new_head) { // Setter para head
-        head = new_head;
-    }
-    Node<T>* get_head() { // Método para acceder a head
-        return head;
-    }
 
-    T front() { // Retorna el elemento al comienzo
+    int front() { // Retorna el elemento al comienzo
         if (head == nullptr) {
             throw std::runtime_error("La lista está vacía.");
         }
         return head->data;
     }
 
-    T back() { // Retorna el elemento al final
+    int back() { // Retorna el elemento al final
         if (empty()) {
             throw std::runtime_error("La lista está vacía.");
         }
-        Node<T>* temp = head;
+        Node* temp = head;
         while (temp->next != nullptr) {
             temp = temp->next;
         }
         return temp->data;
     }
 
-    void push_front(T valor) { // Agrega un elemento al comienzo
-        Node<T>* temp = new Node<T>(valor);
+    void push_front(int valor) { // Agrega un elemento al comienzo
+        Node* temp = new Node(valor);
         temp->next = head;
         head = temp;
     }
 
-    void push_back(T valor) { // Agrega un elemento al final
+    void push_back(int valor) { // Agrega un elemento al final
         if (head == nullptr) {
             push_front(valor);
             return;
         }
-        Node<T>* temp = head;
+        Node* temp = head;
         while (temp->next != nullptr) {
             temp = temp->next;
         }
-        temp->next = new Node<T>(valor);
+        temp->next = new Node(valor);
     }
 
-    T pop_front() { // Remueve el elemento al comienzo
+    int pop_front() { // Remueve el elemento al comienzo
         if (empty()) {
             throw std::runtime_error("La lista está vacía.");
         }
-        Node<T>* temp = head;
+        Node* temp = head;
         head = head->next;
-        T return_value = temp->data;
+        int return_value = temp->data;
         delete temp;
         return return_value;
     }
 
-    T pop_back() { // Remueve el elemento al final
+    int pop_back() { // Remueve el elemento al final
         if (head == nullptr) {
             throw std::runtime_error("La lista está vacía.");
         }
         if (head->next == nullptr) {
-            T return_value = head->data;
+            int return_value = head->data;
             delete head;
             head = nullptr;
             return return_value;
         }
-        Node<T>* temp = head;
+        Node* temp = head;
         while (temp->next->next != nullptr) {
             temp = temp->next;
         }
-        T return_value = temp->next->data;
+        int return_value = temp->next->data;
         delete temp->next;
         temp->next = nullptr;
         return return_value;
     }
 
-    T operator[](int n) { // Retorna el elemento en la posición indicada
+    int operator[](int n) { // Retorna el elemento en la posición indicada
         if (n < 0 || n >= size()) {
             throw std::runtime_error("Índice fuera de rango.");
         }
-        Node<T>* temp = head;
+        Node* temp = head;
         for (int i = 0; i < n; i++) {
             temp = temp->next;
         }
@@ -117,7 +107,7 @@ public:
     }
 
     int size() { // Retorna el tamaño de la lista
-        Node<T>* temp = head;
+        Node* temp = head;
         int size = 0;
         while (temp != nullptr) {
             temp = temp->next;
@@ -128,7 +118,7 @@ public:
 
     void clear() { // Elimina todos los elementos de la lista
         while (head != nullptr) {
-            Node<T>* temp = head;
+            Node* temp = head;
             head = head->next;
             delete temp;
         }
@@ -138,8 +128,8 @@ public:
         if (empty()) {
             return;
         }
-        Node<T>* temp = nullptr;
-        Node<T>* node;
+        Node* temp = nullptr;
+        Node* node;
         while (head != nullptr) {
             node = head;
             head = head->next;
@@ -149,8 +139,8 @@ public:
         head = temp;
     }
 
-    friend std::ostream& operator<<(std::ostream& os, ForwardList<T>& list) {
-        Node<T>* node = list.head;
+    friend std::ostream& operator<<(std::ostream& os, ForwardList& list) {
+        Node* node = list.head;
         while (node != nullptr) {
             os << node->data << " ";
             node = node->next;
@@ -162,7 +152,7 @@ public:
 // termina
 
 void forward_list_test(){
-    ForwardList<int> list;
+    ForwardList list;
 
     // Prueba de inserción al frente
     list.push_front(10);
@@ -198,4 +188,4 @@ void forward_list_test(){
     list.clear();
     std::cout << "Lista después de clear: " << list << std::endl;
 }
-#endif // ESTRUCTURAS_DE_DATOS_LAURA_FORWARD_LIST_H
+#endif //ALGORITMOS_Y_ESTRUCTRUAS_DE_DATOS_GIT_FORWARDLIST_STRUCT_H

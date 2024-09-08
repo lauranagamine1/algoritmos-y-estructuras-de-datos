@@ -1,9 +1,10 @@
 #include <iostream>
-#include "ForwardList.h"
+#include "ForwardList_struct.h"
 using namespace std;
 
-int main(){
+int main() {
     forward_list_test();
+
 
   return 0;
 }
