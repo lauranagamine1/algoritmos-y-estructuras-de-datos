@@ -17,7 +17,7 @@ void dfs(int start, const std::vector<std::vector<int>>& adjList, std::vector<bo
         cout << node << " "; // Visita el nodo
 
         // Recorremos sus vecinos
-        for (int neighbor : adjList[node]) {
+        for (auto neighbor : adjList[node]) {
             if (!visited[neighbor]) {
                 s.push(neighbor);
                 visited[neighbor] = true;
