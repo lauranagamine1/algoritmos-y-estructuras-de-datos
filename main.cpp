@@ -3,8 +3,6 @@
 using namespace std;
 
 int main() {
-    forward_list_test();
-
-
-  return 0;
+    listnode_test();
+    return 0;
 }

@@ -7,185 +7,191 @@
 #include <iostream>
 #include <stdexcept>
 
-struct Node {
-    int data;
-    Node* next;
+struct ListNode {
+    int val;
+    ListNode* next;
 
-    Node(int value) : data(value), next(nullptr) {} // Constructor para Node
-};
+    // Constructor por defecto
+    ListNode() : val(0), next(nullptr) {}
 
-struct ForwardList {
-    Node* head;
+    // Constructor con valor
+    ListNode(int x) : val(x), next(nullptr) {}
 
-    ForwardList() : head(nullptr) {} // Constructor por defecto
-
-    ~ForwardList() { // Destructor
+    // Destructor
+    ~ListNode() {
         clear();
-        std::cout << "Se ha destruido ForwardList." << std::endl;
+        std::cout << "Se ha destruido ListNode." << std::endl;
     }
-
-    int front() { // Retorna el elemento al comienzo
-        if (head == nullptr) {
-            throw std::runtime_error("La lista está vacía.");
+    // Elimina todos los elementos de la lista
+    void clear() {
+        ListNode* temp = this;
+        while (next != nullptr) {
+            ListNode* to_delete = next;
+            next = next->next;
+            delete to_delete;
         }
-        return head->data;
+        val = 0;
+        next = nullptr;
     }
 
-    int back() { // Retorna el elemento al final
+    // Sobrecarga del operador de salida para imprimir la lista
+    friend std::ostream& operator<<(std::ostream& os, const ListNode& node) {
+        const ListNode* current = &node;
+        current = current->next;
+        while (current) {
+            os << current->val;
+            if (current->next) {
+                os << " -> ";
+            }
+            current = current->next;
+        }
+        return os;
+    }
+
+    // Retorna el elemento al comienzo
+    int front() {
         if (empty()) {
             throw std::runtime_error("La lista está vacía.");
         }
-        Node* temp = head;
+        return val;
+    }
+
+    // Agrega un elemento al comienzo
+    void push_front(int valor) {
+        ListNode* temp = new ListNode(val);
+        temp->next = next;
+        val = valor;
+        next = temp;
+    }
+
+    // Agrega un elemento al final
+    void push_back(int valor) {
+        ListNode* temp = this;
         while (temp->next != nullptr) {
             temp = temp->next;
         }
-        return temp->data;
+        temp->next = new ListNode(valor);
     }
 
-    void push_front(int valor) { // Agrega un elemento al comienzo
-        Node* temp = new Node(valor);
-        temp->next = head;
-        head = temp;
-    }
-
-    void push_back(int valor) { // Agrega un elemento al final
-        if (head == nullptr) {
-            push_front(valor);
-            return;
-        }
-        Node* temp = head;
-        while (temp->next != nullptr) {
-            temp = temp->next;
-        }
-        temp->next = new Node(valor);
-    }
-
-    int pop_front() { // Remueve el elemento al comienzo
+    // Retorna el elemento al final
+    int back() {
         if (empty()) {
             throw std::runtime_error("La lista está vacía.");
         }
-        Node* temp = head;
-        head = head->next;
-        int return_value = temp->data;
-        delete temp;
+        ListNode* temp = this;
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+        return temp->val;
+    }
+
+    // Remueve el elemento al comienzo
+    int pop_front() {
+        if (empty()) {
+            throw std::runtime_error("La lista está vacía.");
+        }
+        int return_value = val;
+        if (next != nullptr) {
+            ListNode* temp = next;
+            val = next->val;
+            next = next->next;
+            delete temp;
+        } else {
+            clear();
+        }
         return return_value;
     }
 
-    int pop_back() { // Remueve el elemento al final
-        if (head == nullptr) {
+    // Remueve el elemento al final
+    int pop_back() {
+        if (empty()) {
             throw std::runtime_error("La lista está vacía.");
         }
-        if (head->next == nullptr) {
-            int return_value = head->data;
-            delete head;
-            head = nullptr;
+        if (next == nullptr) {
+            int return_value = val;
+            clear();
             return return_value;
         }
-        Node* temp = head;
+        ListNode* temp = this;
         while (temp->next->next != nullptr) {
             temp = temp->next;
         }
-        int return_value = temp->next->data;
+        int return_value = temp->next->val;
         delete temp->next;
         temp->next = nullptr;
         return return_value;
     }
 
-    int operator[](int n) { // Retorna el elemento en la posición indicada
+    // Retorna el elemento en la posición indicada
+    int operator[](int n) {
         if (n < 0 || n >= size()) {
             throw std::runtime_error("Índice fuera de rango.");
         }
-        Node* temp = head;
+        ListNode* temp = this;
         for (int i = 0; i < n; i++) {
             temp = temp->next;
         }
-        return temp->data;
+        return temp->val;
     }
 
-    bool empty() { // Retorna si la lista está vacía o no
-        return (head == nullptr);
+    // Retorna si la lista está vacía o no
+    bool empty() {
+        return (next == nullptr && val == 0);
     }
 
-    int size() { // Retorna el tamaño de la lista
-        Node* temp = head;
+    // Retorna el tamaño de la lista
+    int size() {
+        ListNode* temp = this;
         int size = 0;
         while (temp != nullptr) {
             temp = temp->next;
             size++;
         }
-        return size;
+        return size-1;
     }
 
-    void clear() { // Elimina todos los elementos de la lista
-        while (head != nullptr) {
-            Node* temp = head;
-            head = head->next;
-            delete temp;
-        }
-    }
-
-    void reverse() { // Revierte la lista
-        if (empty()) {
-            return;
-        }
-        Node* temp = nullptr;
-        Node* node;
-        while (head != nullptr) {
-            node = head;
-            head = head->next;
-            node->next = temp;
-            temp = node;
-        }
-        head = temp;
-    }
-
-    friend std::ostream& operator<<(std::ostream& os, ForwardList& list) {
-        Node* node = list.head;
-        while (node != nullptr) {
-            os << node->data << " ";
-            node = node->next;
-        }
-        return os;
-    }
 };
 
-// termina
+// Prueba de la funcionalidad
+void listnode_test() {
+    // Crear una lista vacía
+    ListNode list;
 
-void forward_list_test(){
-    ForwardList list;
+    // Comprobando que la lista esté vacía
+    std::cout << "Lista vacía: " << std::boolalpha << list.empty() << std::endl;
 
-    // Prueba de inserción al frente
-    list.push_front(10);
-    list.push_front(20);
-    list.push_front(30);
+    // Insertando elementos en la lista
+    list.push_back(10);
+    list.push_back(20);
+    list.push_back(30);
+    list.push_front(5);
 
-    // Prueba de inserción al final
-    list.push_back(40);
-    list.push_back(50);
-
-    // Mostrar la lista
+    // Imprimiendo la lista después de las inserciones
     std::cout << "Lista después de push_front y push_back: " << list << std::endl;
 
-    // Probar front() y back()
-    std::cout << "Elemento al frente: " << list.front() << std::endl;
-    std::cout << "Elemento al final: " << list.back() << std::endl;
+    // Comprobando el tamaño de la lista
+    std::cout << "Tamaño de la lista: " << list.size() << std::endl;
 
-    // Prueba de pop_front y pop_back
-    std::cout << "Eliminando elemento al frente: " << list.pop_front() << std::endl;
-    std::cout << "Eliminando elemento al final: " << list.pop_back() << std::endl;
+    // Comprobando los elementos al frente y atrás
+    std::cout << "Primer elemento (front): " << list.front() << std::endl;
+    std::cout << "Último elemento (back): " << list.back() << std::endl;
 
-    // Mostrar la lista después de pop_front y pop_back
-    std::cout << "Lista después de pop_front y pop_back: " << list << std::endl;
+    // Accediendo a elementos por índice
+    std::cout << "Elemento en índice 2: " << list[2] << std::endl;
 
-    // Prueba de operador[]
-    std::cout << "Elemento en la posición 0: " << list[0] << std::endl;
+    // Remover el primer y último elemento
+    int pop_f = list.pop_front();
+    std::cout << "Se eliminó del frente: " << pop_f << std::endl;
+    std::cout << "Lista tras pop_front: " << list << std::endl;
 
-    // Prueba de reverse()
-    list.reverse();
-    std::cout << "Lista después de reverse: " << list << std::endl;
+    int pop_b = list.pop_back();
+    std::cout << "Se eliminó del final: " << pop_b << std::endl;
+    std::cout << "Lista tras pop_back: " << list << std::endl;
 
-    // Prueba de clear()
+    // Limpiando la lista
     list.clear();
     std::cout << "Lista después de clear: " << list << std::endl;
+    std::cout << "Lista vacía: " << std::boolalpha << list.empty() << std::endl;
 }
+
 #endif //ALGORITMOS_Y_ESTRUCTRUAS_DE_DATOS_GIT_FORWARDLIST_STRUCT_H
