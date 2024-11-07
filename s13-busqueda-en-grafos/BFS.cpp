@@ -17,7 +17,7 @@ void bfs(int start, const std::vector<std::vector<int>>& adjList, std::vector<bo
         cout << node << " ";
 
         // vecinos
-        for (int neighbor : adjList[node]) { // toma el valor del node
+        for (int neighbor : adjList[node]) { // toma nodos:0,1,2,...
             if (!visited[neighbor]) {
                 q.push(neighbor);
                 visited[neighbor] = true;
