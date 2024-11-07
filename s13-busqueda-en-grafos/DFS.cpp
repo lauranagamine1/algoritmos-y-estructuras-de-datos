@@ -4,16 +4,17 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+using namespace std;
 
 void dfs(int start, const std::vector<std::vector<int>>& adjList, std::vector<bool>& visited) {
-    std::stack<int> s;
+    stack<int> s;
     s.push(start);
     visited[start] = true;
 
     while (!s.empty()) {
         int node = s.top();
         s.pop();
-        std::cout << node << " "; // Visita el nodo
+        cout << node << " "; // Visita el nodo
 
         // Recorremos sus vecinos
         for (int neighbor : adjList[node]) {

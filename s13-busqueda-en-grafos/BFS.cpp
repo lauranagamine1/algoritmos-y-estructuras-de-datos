@@ -4,19 +4,20 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+using namespace std;
 
 void bfs(int start, const std::vector<std::vector<int>>& adjList, std::vector<bool>& visited) {
-    std::queue<int> q;
+    queue<int> q;
     q.push(start);
     visited[start] = true;
 
     while (!q.empty()) {
         int node = q.front();
         q.pop();
-        std::cout << node << " ";
+        cout << node << " ";
 
         // vecinos
-        for (int neighbor : adjList[node]) {
+        for (int neighbor : adjList[node]) { // toma el valor del node
             if (!visited[neighbor]) {
                 q.push(neighbor);
                 visited[neighbor] = true;
