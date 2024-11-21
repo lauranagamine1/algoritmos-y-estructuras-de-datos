@@ -1,0 +1,6 @@
+C:/Users/laura/OneDrive/Documentos/Programacion/UTEC/Ciclo_4/algoritmos-y-estructruas-de-datos-git/cmake-build-debug/CMakeFiles/main.dir
+C:/Users/laura/OneDrive/Documentos/Programacion/UTEC/Ciclo_4/algoritmos-y-estructruas-de-datos-git/cmake-build-debug/CMakeFiles/dfs.dir
+C:/Users/laura/OneDrive/Documentos/Programacion/UTEC/Ciclo_4/algoritmos-y-estructruas-de-datos-git/cmake-build-debug/CMakeFiles/bfs.dir
+C:/Users/laura/OneDrive/Documentos/Programacion/UTEC/Ciclo_4/algoritmos-y-estructruas-de-datos-git/cmake-build-debug/CMakeFiles/sparse-matrix.dir
+C:/Users/laura/OneDrive/Documentos/Programacion/UTEC/Ciclo_4/algoritmos-y-estructruas-de-datos-git/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/laura/OneDrive/Documentos/Programacion/UTEC/Ciclo_4/algoritmos-y-estructruas-de-datos-git/cmake-build-debug/CMakeFiles/rebuild_cache.dir
